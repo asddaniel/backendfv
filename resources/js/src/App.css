@@ -1,0 +1,26 @@
+a{
+    text-decoration:none !important;
+    cursor:pointer !important;
+}
+a *{
+    cursor:pointer !important;
+}
+
+*{
+    outline:none !important;
+}
+button{
+    outline:none !important;
+    border: none !important;
+}
+*, ::before, ::after {
+    outline:none !important;
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
