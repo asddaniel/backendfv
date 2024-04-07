@@ -36,9 +36,9 @@ $tables = DB::select('SHOW TABLES');
             $tableName = reset($table);
             if (!in_array($tableName, $ignoredTables)) {
             $data[$tableName] = DB::table($tableName)->where("created_at", ">", $last)->orWhere("updated_at", ">", $last)->get();
-            foreach ($data[$tableName] as $tablecontent) {
+            // foreach ($data[$tableName] as $tablecontent) {
                   
-            }
+            // }
             }
         }
 

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use App\Events\ServerUpdateEvent;
 // use Illuminate\Http\Request;
 
 /*
@@ -28,6 +29,7 @@ Route::post("/stylejson", function(Request $request){
 });
 
 Route::get("/essais", function(Request $request){
+    event(new ServerUpdateEvent('hello world je suis laravel'));
     return response()->json([1, 3, 6]);
 });
 Route::post('/post', [App\Http\Controllers\MainController::class, 'post']);
