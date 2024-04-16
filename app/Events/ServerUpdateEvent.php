@@ -35,6 +35,8 @@ class ServerUpdateEvent implements ShouldBroadcast
     }
 
     public function broadcastAs(){
+        //u270922012_mtech
+        //pass = 727N22184a
 
         return 'server-update';
     }

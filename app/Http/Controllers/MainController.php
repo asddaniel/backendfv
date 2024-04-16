@@ -11,10 +11,43 @@ use App\Http\Requests\PostRequest;
 use App\Http\Requests\UpdateRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\http\Request;
+use App\Events\ServerUpdateEvent;
 
 class MainController extends Controller
 {
     //
+
+    private $authorized_key = [];
+    public function receiveData(Request $request){
+      $mdata = $request->json()->all();
+      //return response()->json($data);
+      if(array_key_exists('last_modified', $mdata) && array_key_exists('data', $mdata) && array_key_exists("transaction_key", $mdata)){
+        $all = $this->runUpdates($mdata['data'], $mdata['last_modified']);
+        event(new ServerUpdateEvent(["transaction-key"=>$mdata["transaction_key"]]));
+        //return response()->json($all);
+      }
+      
+      $ignoredTables = ['migrations', 'personal_access_tokens', 'password_reset_tokens', 'failed_jobs']; // Liste des tables à ignorer
+
+$tables = DB::select('SHOW TABLES');
+  $data = [];
+
+  foreach ($tables as $table) {
+      $tableName = reset($table);
+      if (!in_array($tableName, $ignoredTables)) {
+      $data[$tableName] = DB::table($tableName)->where("created_at", ">", $mdata['last_modified'])->orWhere("updated_at", ">", $mdata['last_modified'])->get();
+      // foreach ($data[$tableName] as $tablecontent) {
+            
+      // }
+      }
+  }
+
+  //return response()->json($data);
+      
+      return response()->json($data);
+      
+}
  
 
 public function getDatasync( DataSyncRequest $request){

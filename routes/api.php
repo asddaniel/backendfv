@@ -32,6 +32,7 @@ Route::get("/essais", function(Request $request){
     event(new ServerUpdateEvent('hello world je suis laravel'));
     return response()->json([1, 3, 6]);
 });
+Route::post("/tester", [App\Http\Controllers\MainController::class, 'receiveData']);
 Route::post('/post', [App\Http\Controllers\MainController::class, 'post']);
 Route::post('/syncronize',[App\Http\Controllers\MainController::class, 'getDatasync']);
 Route::post('/syncdata', [App\Http\Controllers\MainController::class, 'getDatasync']);
